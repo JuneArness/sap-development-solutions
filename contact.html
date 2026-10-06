@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contact | Start a Project | SAP Development Solutions</title>
+  <meta name="description" content="Start a project with SAP Development Solutions, LLC: websites, software, POS systems, graphic design, branding, audio, video and business formation support.">
+  <!-- DOMAIN: after launch, replace https://www.example.com/ on this page with the live
+       address (canonical, og:url, og:image, twitter:image and the ld+json block). -->
+  <link rel="canonical" href="https://www.example.com/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SAP Development Solutions, LLC">
+  <meta property="og:title" content="Contact | Start a Project | SAP Development Solutions">
+  <meta property="og:description" content="Start a project with SAP Development Solutions, LLC: websites, software, POS systems, graphic design, branding, audio, video and business formation support.">
+  <meta property="og:url" content="https://www.example.com/contact.html">
+  <meta property="og:image" content="https://www.example.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact | Start a Project | SAP Development Solutions">
+  <meta name="twitter:description" content="Start a project with SAP Development Solutions, LLC: websites, software, POS systems, graphic design, branding, audio, video and business formation support.">
+  <meta name="twitter:image" content="https://www.example.com/og-image.jpg">
+  <meta name="theme-color" content="#0b1020">
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="apple-touch-icon" href="./apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./responsive.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body class="header-dark">
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./index.html" aria-label="SAP Development Solutions, LLC home"><img src="./logo-mark.png" alt="" width="38" height="38"><span class="brand-text"><b>SAP</b><span>Development Solutions</span></span></a>
+      <nav aria-label="Primary"><ul class="nav-links">
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./services.html">Services</a></li>
+          <li><a href="./solutions.html">Solutions</a></li>
+          <li><a href="./about.html">About</a></li>
+          <li><a href="./contact.html" aria-current="page">Contact</a></li>
+      </ul></nav>
+      <a class="btn btn-primary header-cta" href="./contact.html">Start a Project<svg class="icon icon-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <button type="button" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu"><span class="bars" aria-hidden="true"><span></span><span></span></span></button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+    <nav aria-label="Mobile"><ul>
+        <li><a class="m-link" href="./index.html">Home<span>01</span></a></li>
+        <li><a class="m-link" href="./services.html">Services<span>02</span></a></li>
+        <li><a class="m-link" href="./solutions.html">Solutions<span>03</span></a></li>
+        <li><a class="m-link" href="./about.html">About<span>04</span></a></li>
+        <li><a class="m-link" href="./contact.html" aria-current="page">Contact<span>05</span></a></li>
+    </ul></nav>
+    <div class="m-foot">
+      <a class="btn btn-primary" href="./contact.html">Start a Project<svg class="icon icon-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <span class="plain contact-lines" data-email><a href="mailto:sapdevelopmentsolutions@gmail.com">sapdevelopmentsolutions@gmail.com</a></span>
+      <span class="plain contact-lines" data-phone><a href="tel:6167292203">616-729-2203</a></span>
+    </div>
+  </div>
+
+  <main id="main">
+    <section class="page-hero on-dark" aria-labelledby="page-title">
+      <div class="grid-bg" aria-hidden="true"></div>
+      <div class="container">
+        <nav class="crumbs" aria-label="Breadcrumb"><a href="./index.html">Home</a><span aria-hidden="true">/</span><span aria-current="page">Contact</span></nav>
+        <p class="label">Start a project</p>
+        <h1 class="h1" id="page-title">Let’s talk about what you’re building.</h1>
+        <p class="lead">Tell us a little about your project and we’ll get back to you to talk it through.</p>
+        <div class="contact-lines" style="margin-top:1.5rem"><span data-email></span><span data-phone></span></div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="form-title">
+      <div class="container contact-grid">
+        <div class="form-card reveal">
+          <h2 class="h2" id="form-title" style="font-size:clamp(1.6rem,2vw+1rem,2.3rem)">Project details</h2>
+          <p class="muted">All fields except phone and company are required.</p>
+          <!-- FORM ENDPOINT: set company.formEndpoint in data.js (e.g. https://formspree.io/f/abcdwxyz).
+               Until then, the form tells the visitor nothing was sent and offers their email app instead. -->
+          <form class="form" id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" required autocomplete="name"><span class="err">Please enter your name.</span></div>
+              <div class="field"><label for="f-email">Email</label><input id="f-email" name="email" type="email" required autocomplete="email"><span class="err">Please enter a valid email address.</span></div>
+            </div>
+            <div class="form-row">
+              <div class="field"><label for="f-phone">Phone <span class="opt">(optional)</span></label><input id="f-phone" name="phone" type="tel" autocomplete="tel"><span class="err">Please enter a 10-digit number, or leave it blank.</span></div>
+              <div class="field"><label for="f-company">Company / Organization <span class="opt">(optional)</span></label><input id="f-company" name="company" autocomplete="organization"></div>
+            </div>
+            <div class="field"><label for="f-type">Project type</label><select id="f-type" name="type" required></select><span class="err">Please choose a project type.</span></div>
+            <div class="form-row">
+              <div class="field"><label for="f-budget">Budget range</label><select id="f-budget" name="budget" required></select><span class="err">Please choose a budget range.</span></div>
+              <div class="field"><label for="f-timeline">Timeline</label><select id="f-timeline" name="timeline" required></select><span class="err">Please choose a timeline.</span></div>
+            </div>
+            <div class="field"><label for="f-desc">Project description</label><textarea id="f-desc" name="description" required placeholder="What are you building, who is it for, and what does success look like?"></textarea><span class="err">Please describe your project.</span></div>
+            <div class="hp" aria-hidden="true"><label for="f-hp">Leave this empty</label><input id="f-hp" name="_gotcha" tabindex="-1" autocomplete="off"></div>
+            <div><button type="submit" class="btn btn-primary">Send project details<svg class="icon icon-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+            <div class="form-status" id="form-status" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+        <aside class="side reveal" aria-label="Contact details">
+          <div class="side-card on-dark">
+            <h2>Prefer to reach out directly?</h2>
+            <div class="contact-lines"><span data-email></span><span data-phone></span></div>
+          </div>
+          <div class="side-card on-dark">
+            <h2>What happens next</h2>
+            <ol class="next-steps">
+              <li><span><b>We review your details</b><br>and note any questions.</span></li>
+              <li><span><b>We reach out</b><br>to talk through your goals.</span></li>
+              <li><span><b>You get a clear plan</b><br>and estimate before work starts.</span></li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+    </section>
+    <section class="section white" aria-labelledby="faq-title">
+      <div class="container split wl" style="align-items:start">
+        <div class="reveal"><div class="section-head reveal"><div><p class="label">Questions</p><h2 class="h2" id="faq-title">Good to know.</h2></div></div></div>
+        <div class="faq reveal"><details><summary>How does a project start?<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="faq-a"><p>Send the form or call. We’ll talk through your goals, then send a clear plan and estimate before any work begins.</p></div></details><details><summary>Do I own my website?<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="faq-a"><p>Yes. Websites are delivered as standard files that belong to you. Static sites can be hosted on GitHub Pages under your own account (free for public repositories), or anywhere you choose.</p></div></details><details><summary>Can I update the site myself?<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="faq-a"><p>Yes. Every website handoff includes step-by-step guides for common updates, and help is available if you need it.</p></div></details><details><summary>Is business formation support legal advice?<svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg></summary><div class="faq-a"><p>No. We help with the practical, organizational and digital side of getting started. SAP Development Solutions is not a law firm or accounting firm, so please consult a licensed professional for legal, tax or accounting advice.</p></div></details></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="./index.html" aria-label="SAP Development Solutions, LLC home"><img src="./logo-mark.png" alt="" width="38" height="38"><span class="brand-text"><b>SAP</b><span>Development Solutions</span></span></a>
+          <p>SAP Development Solutions, LLC is a technology and creative-solutions company helping businesses, organizations, entrepreneurs and creators build websites, software, brands, business systems and media.</p>
+        </div>
+        <div><h2>Company</h2><ul><li><a href="./index.html">Home</a></li><li><a href="./services.html">Services</a></li><li><a href="./solutions.html">Solutions</a></li><li><a href="./about.html">About</a></li><li><a href="./contact.html">Contact</a></li></ul></div>
+        <div><h2>Services</h2><ul><li><a href="./services.html#software">Software Development</a></li><li><a href="./services.html#web">Web Development</a></li><li><a href="./services.html#design">Graphic Design</a></li><li><a href="./services.html#business-tech">Business Technology</a></li><li><a href="./services.html#formation">Business Formation Support</a></li><li><a href="./services.html#audio">Audio Engineering</a></li><li><a href="./services.html#video">Video Engineering</a></li></ul></div>
+        <div>
+          <h2>Contact</h2>
+          <!-- These fill in from data.js (company.email / company.phone / company.socials) -->
+          <ul class="footer-contact"><li data-email><a href="mailto:sapdevelopmentsolutions@gmail.com">sapdevelopmentsolutions@gmail.com</a></li><li data-phone><a href="tel:6167292203">616-729-2203</a></li></ul>
+          <ul data-socials style="margin-top:.9rem"></ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span data-year>2026</span> SAP Development Solutions, LLC. All rights reserved.</p>
+        <p>Designed and built in-house by SAP Development Solutions, LLC.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

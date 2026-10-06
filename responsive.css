@@ -1,0 +1,57 @@
+/* ==========================================================================
+   SAP DEVELOPMENT SOLUTIONS | responsive.css
+   Phones first, then larger screens; reduced motion; print.
+   ========================================================================== */
+@media (max-width: 479px) {
+  :root { --header-h: 66px; }
+  .brand-text span { display: none; }
+  .hero .btn-row .btn, .cta-band .btn-row .btn { width: 100%; }
+  .svc-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .svc-row .num { display: none; }
+  .cap-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (min-width: 600px) {
+  .grid.g2, .grid.g3, .grid.g4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .process { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .form-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .checks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .need-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .principles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .why { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; }
+}
+
+@media (min-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); }
+  .split { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split.wl { grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); }
+  .grid.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid.g4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .process { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .work-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .svc-detail, .audience { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
+  .contact-grid { grid-template-columns: minmax(0, 1.4fr) minmax(0, .6fr); }
+  .founder { grid-template-columns: minmax(0, 360px) minmax(0, 1fr); }
+  .principles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1.3fr; }
+  .sticky { position: sticky; top: calc(var(--header-h) + 2rem); }
+}
+
+@media (min-width: 1080px) {
+  .nav-links { display: flex; }
+  .header-cta { display: inline-flex; }
+  .menu-toggle, .mobile-menu { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; transition-delay: 0s !important; }
+  .js .reveal, .js .stagger > *, .js .hero-copy > *, .js .diagram { opacity: 1 !important; transform: none !important; }
+}
+
+@media print {
+  .site-header, .mobile-menu, .skip-link { display: none !important; }
+  .hero, .page-hero, .section.dark, .site-footer, .cta-band { background: #fff !important; color: #000 !important; }
+  .js .reveal, .js .stagger > * { opacity: 1 !important; transform: none !important; }
+}
