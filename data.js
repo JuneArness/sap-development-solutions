@@ -90,7 +90,7 @@ window.SAP = {
   ],
 
   /* ------------------------------------------------------------------------
-     3. SELECTED WORK (home page)
+     3. SELECTED WORK (home page and Portfolio page)
      ONLY verified, live work belongs here. Never add demo or unfinished
      projects. Fields:
        status   "Live" for public sites
@@ -135,6 +135,46 @@ window.SAP = {
       summary: "A kid-friendly dress-up game that runs entirely in the browser.",
       built: ["Interactive dress-up with eight characters", "Save to an on-device gallery", "Play-money shop and animated scenes", "Works offline once installed"],
       url: "https://junearness.github.io/mel-dress-up/"
+    }
+  ],
+
+  /* ------------------------------------------------------------------------
+     3b. IN PROGRESS (Portfolio page only)
+     Builds that are finished or nearly finished but NOT live yet. They are
+     clearly labeled "In progress" and have no link.
+     When one goes live: move it up into "work" above, add its url, and set
+     status to "Live". To hide this whole section, change it to:  upcoming: [],
+     ------------------------------------------------------------------------ */
+  upcoming: [
+    {
+      name: "PSP Entertainment",
+      type: "Record label website",
+      status: "In progress",
+      image: "work-psp-entertainment.jpg",
+      imageSm: "work-psp-entertainment-sm.jpg",
+      imageAlt: "PSP Entertainment website home page preview",
+      summary: "Website for an independent, artist-focused record label and entertainment company.",
+      built: ["Artist roster with individual artist pages", "Music, news and press pages", "Video reel on the home page", "Booking and inquiry form"]
+    },
+    {
+      name: "G Rap Community Hub",
+      type: "Podcast website",
+      status: "In progress",
+      image: "work-grap-hub.jpg",
+      imageSm: "work-grap-hub-sm.jpg",
+      imageAlt: "G Rap with Baby Hector website home page preview",
+      summary: "Home base for the G Rap with Baby Hector podcast in Grand Rapids.",
+      built: ["Episodes page", "Upcoming events page", "Community and social pages"]
+    },
+    {
+      name: "Pangea Shores",
+      type: "Consulting website",
+      status: "In progress",
+      image: "work-pangea-shores.jpg",
+      imageSm: "work-pangea-shores-sm.jpg",
+      imageAlt: "Pangea Shores business consulting website home page preview",
+      summary: "Website for a business consulting firm.",
+      built: ["Services and about pages", "Insights page", "Contact page"]
     }
   ],
 

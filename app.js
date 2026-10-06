@@ -89,22 +89,74 @@
   }
 
   /* ---------- Selected work (verified projects only) ---------- */
+  function shot(w, label) {
+    return '<div class="shot"><span class="browser" aria-hidden="true"><i></i><i></i><i></i><span>' + esc(label) + "</span></span>" +
+      (w.image ? '<img src="./' + esc(w.imageSm || w.image) + '" srcset="./' + esc(w.imageSm || w.image) + " 720w, ./" + esc(w.image) + ' 1200w" sizes="(min-width: 900px) 33vw, 100vw" alt="' + esc(w.imageAlt || "") + '" loading="lazy" width="720" height="450">' : "") + "</div>";
+  }
+  function builtList(w) { return "<ul>" + (w.built || []).map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul>"; }
   $$("[data-work]").forEach(function (el) {
     var work = (DATA.work || []).filter(function (w) { return w.name && safeUrl(w.url); });
     if (!work.length) { var wrap = el.closest("[data-hide-if-empty]"); if (wrap) wrap.hidden = true; return; }
     el.innerHTML = work.map(function (w) {
       var url = safeUrl(w.url);
-      return '<article class="card work">' +
-        '<div class="shot"><span class="browser" aria-hidden="true"><i></i><i></i><i></i><span>' + esc(url.replace(/^https?:\/\//, "")) + "</span></span>" +
-        (w.image ? '<img src="./' + esc(w.imageSm || w.image) + '" srcset="./' + esc(w.imageSm || w.image) + " 720w, ./" + esc(w.image) + ' 1200w" sizes="(min-width: 900px) 33vw, 100vw" alt="' + esc(w.imageAlt || "") + '" loading="lazy" width="720" height="450">' : "") + "</div>" +
+      return '<article class="card work">' + shot(w, url.replace(/^https?:\/\//, "")) +
         '<div class="w-body"><div class="w-top"><span class="status">' + esc(w.status || "Live") + '</span><span class="pill">' + esc(w.type) + "</span></div>" +
-        "<h3>" + esc(w.name) + '</h3><p class="client">' + esc(w.client) + "</p><p class=\"muted\">" + esc(w.summary) + "</p>" +
-        "<ul>" + (w.built || []).map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul>" +
+        "<h3>" + esc(w.name) + '</h3><p class="client">' + esc(w.client) + "</p><p class=\"muted\">" + esc(w.summary) + "</p>" + builtList(w) +
         '<a class="text-link" href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">Visit live site' + icon("external") + '<span class="sr-only"> (opens in a new tab)</span></a></div></article>';
     }).join("");
   });
+  // In-progress builds (Portfolio page): clearly labeled, no links
+  $$("[data-upcoming]").forEach(function (el) {
+    var list = (DATA.upcoming || []).filter(function (w) { return w.name; });
+    if (!list.length) { var wrap = el.closest("[data-hide-if-empty]"); if (wrap) wrap.hidden = true; return; }
+    el.innerHTML = list.map(function (w) {
+      return '<article class="card work is-upcoming">' + shot(w, "Not live yet") +
+        '<div class="w-body"><div class="w-top"><span class="status soon">' + esc(w.status || "In progress") + '</span><span class="pill">' + esc(w.type) + "</span></div>" +
+        "<h3>" + esc(w.name) + "</h3><p class=\"muted\">" + esc(w.summary) + "</p>" + builtList(w) +
+        '<p class="fine">Link coming when it launches.</p></div></article>';
+    }).join("");
+  });
 
-  /* ---------- Contact form ---------- */
+  /* ---------- Forms (contact + free SEO audit) ----------
+     Until company.formEndpoint is set in data.js, NOTHING is sent: the form
+     says so plainly and offers to open the visitor's own email app instead. */
+  var endpoint = safeUrl(CO.formEndpoint);
+  function check(f) {
+    var v = f.type === "checkbox" ? (f.checked ? "y" : "") : f.value.trim(), ok = !(f.required && !v);
+    if (ok && v && f.type === "email") ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+    if (ok && v && f.type === "tel") ok = v.replace(/\D/g, "").length >= 10;
+    if (ok && v && f.type === "url") ok = /^(https?:\/\/)?[^\s.]+\.[^\s]{2,}$/i.test(v);
+    var w = f.closest(".field"); if (w) w.classList.toggle("bad", !ok);
+    f.setAttribute("aria-invalid", ok ? "false" : "true"); return ok;
+  }
+  function setupForm(form, opts) {
+    var status = $(".form-status", form);
+    function show(kind, msg) { status.className = "form-status show " + kind; status.innerHTML = icon(kind === "ok" ? "check" : "info") + "<p>" + msg + "</p>"; }
+    var fields = $$("input, select, textarea", form).filter(function (f) { return f.name !== "_gotcha"; });
+    fields.forEach(function (f) {
+      f.addEventListener("blur", function () { if (f.value.trim() && f.type !== "checkbox") check(f); });
+      f.addEventListener("input", function () { if (f.getAttribute("aria-invalid") === "true") check(f); });
+      f.addEventListener("change", function () { if (f.getAttribute("aria-invalid") === "true") check(f); });
+    });
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if ($('[name="_gotcha"]', form).value) return;
+      var bad = fields.filter(function (f) { return !check(f); });
+      if (bad.length) { bad[0].focus(); show("err", "Please check the highlighted field" + (bad.length > 1 ? "s" : "") + "."); return; }
+      var fd = new FormData(form);
+      if (!endpoint) {
+        var href = "mailto:" + CO.email + "?subject=" + encodeURIComponent(opts.subject(fd)) + "&body=" + encodeURIComponent(opts.body(fd));
+        show("info", "Online sending isn’t set up yet, so your message has <strong>not been sent</strong>. <a href=\"" + esc(href) + "\">Open it in your email app</a> to send it, or call " + esc(CO.phone) + ".");
+        return;
+      }
+      var btn = $('button[type="submit"]', form); btn.disabled = true;
+      fetch(endpoint, { method: "POST", body: fd, headers: { Accept: "application/json" } })
+        .then(function (r) { if (!r.ok) throw 0; form.reset(); show("ok", opts.ok); })
+        .catch(function () { show("err", "Sorry, that didn’t go through. Please email " + esc(CO.email) + " or call " + esc(CO.phone) + "."); })
+        .then(function () { btn.disabled = false; });
+    });
+  }
+
   var form = $("#contact-form");
   if (form) {
     function fill(sel, list, first) { sel.innerHTML = '<option value="">' + first + "</option>" + list.map(function (o) { return '<option value="' + esc(o) + '">' + esc(o) + "</option>"; }).join(""); }
@@ -121,42 +173,25 @@
       var target = map[want] || want;
       $$("option", typeSel).forEach(function (o) { if (o.value && o.value.toLowerCase() === String(target).toLowerCase()) typeSel.value = o.value; });
     }
-
-    var status = $("#form-status"), endpoint = safeUrl(CO.formEndpoint);
-    function show(kind, msg) { status.className = "form-status show " + kind; status.innerHTML = icon(kind === "ok" ? "check" : "info") + "<p>" + msg + "</p>"; }
-    function check(f) {
-      var v = f.value.trim(), ok = !(f.required && !v);
-      if (ok && v && f.type === "email") ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
-      if (ok && v && f.type === "tel") ok = v.replace(/\D/g, "").length >= 10;
-      var w = f.closest(".field"); if (w) w.classList.toggle("bad", !ok);
-      f.setAttribute("aria-invalid", ok ? "false" : "true"); return ok;
-    }
-    $$("input, select, textarea", form).forEach(function (f) {
-      if (f.name === "_gotcha") return;
-      f.addEventListener("blur", function () { if (f.value.trim()) check(f); });
-      f.addEventListener("input", function () { if (f.getAttribute("aria-invalid") === "true") check(f); });
-      f.addEventListener("change", function () { if (f.getAttribute("aria-invalid") === "true") check(f); });
-    });
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if ($('[name="_gotcha"]', form).value) return;
-      var bad = $$("input, select, textarea", form).filter(function (f) { return f.name !== "_gotcha" && !check(f); });
-      if (bad.length) { bad[0].focus(); show("err", "Please check the highlighted field" + (bad.length > 1 ? "s" : "") + "."); return; }
-      var fd = new FormData(form);
-      if (!endpoint) {
-        // Not connected yet: nothing is sent. Offer the visitor's own email app instead.
-        var subject = "Project inquiry: " + fd.get("type") + " (" + fd.get("name") + ")";
-        var body = ["Name: " + fd.get("name"), "Email: " + fd.get("email"), "Phone: " + (fd.get("phone") || ""), "Company / organization: " + (fd.get("company") || ""),
+    setupForm(form, {
+      subject: function (fd) { return "Project inquiry: " + fd.get("type") + " (" + fd.get("name") + ")"; },
+      body: function (fd) {
+        return ["Name: " + fd.get("name"), "Email: " + fd.get("email"), "Phone: " + (fd.get("phone") || ""), "Company / organization: " + (fd.get("company") || ""),
           "Project type: " + fd.get("type"), "Budget: " + (fd.get("budget") || ""), "Timeline: " + (fd.get("timeline") || ""), "", fd.get("description")].join("\n");
-        var href = "mailto:" + CO.email + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-        show("info", "Online sending isn’t set up yet, so your message has <strong>not been sent</strong>. <a href=\"" + esc(href) + "\">Open it in your email app</a> to send it, or call " + esc(CO.phone) + ".");
-        return;
-      }
-      var btn = $('button[type="submit"]', form); btn.disabled = true;
-      fetch(endpoint, { method: "POST", body: fd, headers: { Accept: "application/json" } })
-        .then(function (r) { if (!r.ok) throw 0; form.reset(); show("ok", "Thanks! Your project details were sent. We’ll be in touch soon."); })
-        .catch(function () { show("err", "Sorry, that didn’t go through. Please email " + esc(CO.email) + " or call " + esc(CO.phone) + "."); })
-        .then(function () { btn.disabled = false; });
+      },
+      ok: "Thanks! Your project details were sent. We’ll be in touch soon."
+    });
+  }
+
+  var audit = $("#audit-form");
+  if (audit) {
+    setupForm(audit, {
+      subject: function (fd) { return "Free SEO audit request: " + fd.get("website"); },
+      body: function (fd) {
+        return ["Name: " + fd.get("name"), "Email: " + fd.get("email"), "Phone: " + fd.get("phone"), "Business: " + (fd.get("business") || ""),
+          "Website: " + fd.get("website"), "", "Consent to be contacted about this audit: yes"].join("\n");
+      },
+      ok: "Thanks! Your audit request was sent. We’ll review your site and reach out with your grade and plan."
     });
   }
 
